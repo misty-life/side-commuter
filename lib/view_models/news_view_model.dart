@@ -8,19 +8,19 @@ import 'package:flutter/material.dart';
 class NewsViewModel extends ChangeNotifier {
   NewsRepository _newsRepository = NewsRepository();
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-
   int _currentCountryIndex = 0;
   int get currentCountryIndex => _currentCountryIndex;
 
-  List<String> countries = ["kr", "us"];
-  List<News> newsList = [];
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   void setLoading(bool state) {
     _isLoading = state;
     notifyListeners();
   }
+
+  List<String> countries = ["kr", "us"];
+  List<News> newsList = [];
 
   Future<void> getTopHeadLinesByCountry(String country) async {
     setLoading(true);
