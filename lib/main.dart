@@ -13,6 +13,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+        ),
       ),
       initialRoute: AppRoutes.HOME_VIEW,
       routes: routingMap,

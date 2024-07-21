@@ -45,9 +45,18 @@ class _HomeViewState extends State<HomeView> {
                 weatherModel: viewModel.currentWeather,
               ),
 
-            TextButton(
-              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.NEWS_VIEW),
-              child: const Text("헤드 라인 뉴스"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pushNamed(AppRoutes.NEWS_VIEW),
+                  child: const Text("헤드 라인 뉴스"),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pushNamed(AppRoutes.MUSIC_RECOMMENDATION_VIEW),
+                  child: const Text("노래 추천"),
+                ),
+              ],
             ),
           ],
         ),

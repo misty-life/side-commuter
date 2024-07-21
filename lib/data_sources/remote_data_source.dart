@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:commuter/constants.dart';
 import 'package:commuter/keys.dart';
 import 'package:commuter/models.dart/news_model.dart';
+import 'package:commuter/models.dart/track_model.dart';
 import 'package:commuter/models.dart/weather_model.dart';
 
 class RemoteDataSource {
-
-  static const String newsApiKey = NEWS_API_KEY;
-  static const String weatherApiKey = WEATHER_API_KEY;
   static HttpClient client = HttpClient();
 
   bool isResponseSuccess(dynamic statusCode) {
@@ -19,7 +18,7 @@ class RemoteDataSource {
   }
 
   Future<List<News>> getTopHeadLineNews({required String country}) async {
-    Uri url = Uri.parse("https://newsapi.org/v2/top-headlines?country=$country&apiKey=$newsApiKey");
+    Uri url = Uri.parse("https://newsapi.org/v2/top-headlines?country=$country&apiKey=$NEWS_API_KEY");
     HttpClientRequest request =  await client.getUrl(url);
     HttpClientResponse response = await request.close();
     String rawData = await response.transform(utf8.decoder).join();
@@ -43,5 +42,20 @@ class RemoteDataSource {
 
     Weather weather = Weather.fromJson(jsonData);
     return weather;
+  }
+
+  Future<List<Track>> getTopTracksFromLastFM() async {
+    Uri url = Uri.parse("$LAST_FM_BASE_URL?method=chart.gettoptracks&api_key=$LAST_FM_API_KEY&format=json");
+    HttpClientRequest request =  await client.getUrl(url);
+    HttpClientResponse response = await request.close();
+    String rawData = await response.transform(utf8.decoder).join();
+    Map<String, dynamic> jsonData = jsonDecode(rawData);
+    assert(jsonData.containsKey("error") == false);
+
+    List<Track> trackList = [];
+    for (var track in jsonData["tracks"]["track"]) {
+      trackList.add(Track.fromJson(track));
+    }
+    return trackList;
   }
 }
