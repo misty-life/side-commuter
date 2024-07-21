@@ -2,13 +2,18 @@
 
 import 'package:commuter/models.dart/weather_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 Widget WeatherHome({
   required BuildContext context,
   required Weather weatherModel,
 }) {
   return Container(
+    width: MediaQuery.of(context).size.width * 0.9,
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.deepPurpleAccent),
+      borderRadius: BorderRadius.circular(20),
+    ),
     child: Column(
       children: [
         Image.network(

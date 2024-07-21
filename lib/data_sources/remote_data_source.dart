@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:commuter/keys.dart';
 import 'package:commuter/models.dart/news_model.dart';
 import 'package:commuter/models.dart/weather_model.dart';
-import 'package:geolocator/geolocator.dart';
 
 class RemoteDataSource {
 
@@ -34,19 +33,7 @@ class RemoteDataSource {
     return newsList;
   }
 
-  Future<Weather> getCurrentWeather() async {
-    double lat;
-    double lon;
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      lat = 37.51175556;
-      lon = 127.1079306;
-    } else {
-      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-      lat = position.latitude;
-      lon = position.longitude;
-    }
-
+  Future<Weather> getCurrentWeatherByCoord({required double lat, required double lon}) async {
     Uri url = Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$WEATHER_API_KEY");
     HttpClientRequest request =  await client.getUrl(url);
     HttpClientResponse response = await request.close();

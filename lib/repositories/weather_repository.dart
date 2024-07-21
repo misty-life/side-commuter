@@ -6,8 +6,8 @@ import 'package:commuter/models.dart/weather_model.dart';
 class WeatherRepository {
   RemoteDataSource _remoteDataSource = RemoteDataSource();
   
-  Future<Weather> getCurrentWeather() async {
-    Weather currentWeather = await _remoteDataSource.getCurrentWeather();
+  Future<Weather> getCurrentWeather({required double lat, required double lon}) async {
+    Weather currentWeather = await _remoteDataSource.getCurrentWeatherByCoord(lat: lat, lon: lon);
     return currentWeather;
   }
 }
