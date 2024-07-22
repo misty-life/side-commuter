@@ -58,6 +58,11 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
             ),
+
+            TextButton(
+                  onPressed: () => Navigator.of(context).pushNamed(AppRoutes.QUIZ_VIEW),
+                  child: const Text("상식 퀴즈"),
+                ),
           ],
         ),
       ),

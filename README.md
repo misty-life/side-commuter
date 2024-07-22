@@ -16,3 +16,5 @@
 4. 한국/미국 헤드라인 뉴스
     - News API 사용
     - url_launcher 사용 (해당 뉴스 원본으로 이동)
+5. 상식 퀴즈
+    - Quiz API 사용

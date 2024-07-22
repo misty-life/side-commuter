@@ -32,7 +32,7 @@ class _MusicRecommendationViewState extends State<MusicRecommendationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Music Recommendation")),
+      appBar: AppBar(title: const Text("Music")),
       body: Column(
         children: [
           viewModel.isLoading

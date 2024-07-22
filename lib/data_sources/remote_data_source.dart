@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:commuter/constants.dart';
 import 'package:commuter/keys.dart';
 import 'package:commuter/models.dart/news_model.dart';
+import 'package:commuter/models.dart/quiz_model.dart';
 import 'package:commuter/models.dart/track_model.dart';
 import 'package:commuter/models.dart/weather_model.dart';
 
@@ -45,7 +46,7 @@ class RemoteDataSource {
   }
 
   Future<List<Track>> getTopTracksFromLastFM() async {
-    Uri url = Uri.parse("$LAST_FM_BASE_URL?method=chart.gettoptracks&api_key=$LAST_FM_API_KEY&format=json");
+    Uri url = Uri.parse("$LAST_FM_BASE_URL/?method=chart.gettoptracks&api_key=$LAST_FM_API_KEY&format=json");
     HttpClientRequest request =  await client.getUrl(url);
     HttpClientResponse response = await request.close();
     String rawData = await response.transform(utf8.decoder).join();
@@ -57,5 +58,20 @@ class RemoteDataSource {
       trackList.add(Track.fromJson(track));
     }
     return trackList;
+  }
+
+  Future<List<Quiz>> getRandomQuiz() async {
+    Uri url = Uri.parse("$QUIZ_BASE_URL/questions?apiKey=$QUIZ_TOKEN");
+    HttpClientRequest request =  await client.getUrl(url);
+    HttpClientResponse response = await request.close();
+    String rawData = await response.transform(utf8.decoder).join();
+    assert(jsonDecode(rawData).contains("error") == false);
+
+    List<Quiz> randomQuizList = [];
+    for (var quiz in jsonDecode(rawData)) {
+      randomQuizList.add(Quiz.fromJson(quiz));
+    }
+    
+    return randomQuizList;
   }
 }
